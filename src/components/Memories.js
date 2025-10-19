@@ -1,236 +1,96 @@
 import React from "react";
 import "./Memories.css";
 
+const images = [
+  { src: "img1.webp", alt: "Riviera, IEEE TEMS Vellore", caption: "The Team" },
+  { src: "img2.webp", alt: "Ice-Breaking, IEEE TEMS Vellore", caption: "" },
+  { src: "img3.webp", alt: "Innovision, IEEE TEMS Vellore", caption: "HackXpertise 2.0" },
+  { src: "img4.webp", alt: "Code Rush, IEEE TEMS Vellore", caption: "Expo Gravitas 2025" },
+  { src: "img5.webp", alt: "Riviera, IEEE TEMS Vellore", caption: "" },
+  { src: "img6.webp", alt: "Gravitas, IEEE TEMS Vellore", caption: "CodeRush 2.0" },
+  { src: "img8.webp", alt: "Team 2022-23, IEEE TEMS Vellore", caption: "Squid Survivals" },
+  { src: "img9.webp", alt: "Team 2022-23, IEEE TEMS Vellore", caption: "Expo Gravitas 2025" },
+  { src: "img10.webp", alt: "Team 2022-23, IEEE TEMS Vellore", caption: "" },
+  { src: "img11.webp", alt: "Team 2022-23, IEEE TEMS Vellore", caption: "Bounty Castle" },
+  { src: "img12.webp", alt: "Team 2022-23, IEEE TEMS Vellore", caption: "HackXpertise" },
+  { src: "img13.webp", alt: "Team 2022-23, IEEE TEMS Vellore", caption: "HackXpertise" }
+];
+
 const Memories = () => {
   return (
-    <div>
-      <h2
-        style={{
-          textAlign: "center",
-          paddingTop: "25px",
-          color: "white",
-          marginBottom: "0px",
-        }}
-      >
-        <span
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, transparent 10%, green 10%, green 90%, transparent 90%)",
-            backgroundSize: "100% 5px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "0 100%",
-          }}
-        >
-          <strong id="memories" style={{ fontSize: "1.3em" }}>
-            Memories
-          </strong>
+    <section id="Memories">
+      <h2 style={{ paddingTop: "0px" }}>
+        <span>
+          <strong>Memories</strong>
         </span>
       </h2>
-      <section id="Memories">
-        <div id="carouselExampleIndicators" className="carousel slide">
-          <div className="carousel-indicators">
+
+      <div 
+        id="carouselExampleIndicators" 
+        className="carousel slide carousel-fade" 
+        data-bs-ride="carousel" 
+        data-bs-interval="3000"
+      >
+        {/* Carousel Indicators */}
+        <div className="carousel-indicators">
+          {images.map((_, i) => (
             <button
+              key={i}
               type="button"
               data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="0"
-              className="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="3"
-              aria-label="Slide 4"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="4"
-              aria-label="Slide 5"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="5"
-              aria-label="Slide 6"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="6"
-              aria-label="Slide 7"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="7"
-              aria-label="Slide 8"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="8"
-              aria-label="Slide 9"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="9"
-              aria-label="Slide 10"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="10"
-              aria-label="Slide 11"
-            ></button>
-          </div>
-          <div className="carousel-inner" style={{ textAlign: "center" }}>
-            <div className="carousel-item active">
-              <img
-                className="mimg"
-                src="im1.webp"
-                alt="Riviera , IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3></h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="im2.webp"
-                alt="Ice-Breaking , IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>HackXpertise</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="im3.webp"
-                alt="Innovision , IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>CodeRush 2.0</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="im4.webp"
-                alt="Code Rush , IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Gravitas 2024</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="im5.webp"
-                alt="Riviera , IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Expo Gravitas 2024</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="im6.webp"
-                alt="Gravitas, IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Riviera 2024</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="im7.webp"
-                alt="Innovision, IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Expo Riviera 2024</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="img8.webp"
-                alt="Team 2022-23, IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Gravitas 2023</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="img5.webp"
-                alt="Team 2022-23, IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Innovision Talks</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="img4.webp"
-                alt="Team 2022-23, IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Riviera 2023</h3>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                className="mimg"
-                src="img6.webp"
-                alt="Team 2022-23, IEEE TEMS Vellore"
-              />
-              <div className="carousel-caption">
-                <h3>Team 2022-23</h3>
-              </div>
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev"
-          >
-            <img src="arrow2.svg" className="svg" alt="arrow" />
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next"
-          >
-            <img src="arrow.svg" className="svg" alt="arrow" />
-            <span className="visually-hidden">Next</span>
-          </button>
+              data-bs-slide-to={i}
+              className={i === 0 ? "active" : ""}
+              aria-current={i === 0 ? "true" : undefined}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
         </div>
-      </section>
-    </div>
+
+        {/* Carousel Items */}
+        <div className="carousel-inner">
+          {images.map((img, idx) => (
+            <div key={idx} className={`carousel-item ${idx === 0 ? "active" : ""}`}>
+              <img 
+                className="mimg" 
+                src={process.env.PUBLIC_URL + "/" + img.src} 
+                alt={img.alt}
+                loading={idx === 0 ? "eager" : "lazy"}
+              />
+              {img.caption && <div className="caption-pill">{img.caption}</div>}
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation Controls */}
+        <button 
+          className="carousel-control-prev custom-control" 
+          type="button" 
+          data-bs-target="#carouselExampleIndicators" 
+          data-bs-slide="prev" 
+          aria-label="Previous slide"
+        >
+          <img 
+            src={process.env.PUBLIC_URL + "/arrow2.svg"} 
+            className="svg" 
+            alt="Previous" 
+          />
+        </button>
+        
+        <button 
+          className="carousel-control-next custom-control" 
+          type="button" 
+          data-bs-target="#carouselExampleIndicators" 
+          data-bs-slide="next" 
+          aria-label="Next slide"
+        >
+          <img 
+            src={process.env.PUBLIC_URL + "/arrow.svg"} 
+            className="svg" 
+            alt="Next" 
+          />
+        </button>
+      </div>
+    </section>
   );
 };
 

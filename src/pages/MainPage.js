@@ -3,13 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState, useMemo } from "react";
 
 import {
-    faInstagram,
-    faLinkedin,
-    faMedium,
+  faInstagram,
+  faLinkedin,
+  faMedium,
 } from "@fortawesome/free-brands-svg-icons";
-import Lottie from "lottie-web";
 import About from "../components/About";
-import Blog from "../components/Blog";
+// import Blog from "../components/Blog"; // blog component disabled
 import Board from "../components/Board";
 import ContactSection from "../components/ContactSection";
 import Domains from "../components/Domains";
@@ -18,6 +17,10 @@ import Faculty from "../components/Faculty";
 import Footer from "../components/Footer";
 import Memories from "../components/Memories";
 import "../CSS/MainPage.css";
+
+import NewBlog from "../components/NewBlog";
+import Silk from "../Silk/Silk";
+import PixelBlast from "../PixelBlast/PixelBlast";
 
 const HomePage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -53,20 +56,43 @@ const HomePage = () => {
     };
 
     typeLetters();
-    return () => {};
+    return () => { };
   }, [words]);
 
+  // Suppress ResizeObserver errors
   useEffect(() => {
-    const animation = Lottie.loadAnimation({
-      container: document.getElementById("bgimg"),
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      path: "https://lottie.host/126e9712-f452-456d-bf46-2617f37a6d55/uMTfCwBKPJ.json",
-    });
-
+    const resizeObserverErrorHandler = (e) => {
+      if (e.message === 'ResizeObserver loop completed with undelivered notifications.' ||
+          e.message === 'ResizeObserver loop limit exceeded') {
+        e.stopImmediatePropagation();
+        return false;
+      }
+    };
+    
+    const errorHandler = (event) => {
+      if (event.message && event.message.includes('ResizeObserver')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        return false;
+      }
+    };
+    
+    window.addEventListener('error', resizeObserverErrorHandler);
+    window.addEventListener('error', errorHandler, true);
+    
+    // Also suppress unhandled rejection errors related to ResizeObserver
+    const unhandledRejectionHandler = (event) => {
+      if (event.reason && event.reason.message && event.reason.message.includes('ResizeObserver')) {
+        event.preventDefault();
+        return false;
+      }
+    };
+    window.addEventListener('unhandledrejection', unhandledRejectionHandler);
+    
     return () => {
-      animation.destroy();
+      window.removeEventListener('error', resizeObserverErrorHandler);
+      window.removeEventListener('error', errorHandler, true);
+      window.removeEventListener('unhandledrejection', unhandledRejectionHandler);
     };
   }, []);
 
@@ -79,27 +105,22 @@ const HomePage = () => {
 
   return (
     <div>
-      <section id="Home" style={{ background: "black" }}>
+      <section id="Home" style={{ 
+        background: "black", 
+        height: "100vh",
+        position: "relative",
+        zIndex: 1 
+      }}>
         <div id="homebg">
-          <div
-            style={{
-              width: "210vh",
-            }}
-            id="bgimg"
-          ></div>{" "}
+          <Silk
+            speed={12.5}
+            scale={1.2}
+            color="#008020"
+            noiseIntensity={1.5}
+            rotation={0.14}
+            style={{ zIndex: 0 }}
+          />
         </div>
-        <style>
-          {`
-      @media screen and (max-width: 600px) {
-        #bgimg {
-          width: 180vh; 
-          position: relative;
-          right : 650px;
-
-        }
-      }
-    `}
-        </style>
         <div id="homecontent">
           <a href="/" style={{ textDecoration: "none" }}>
             <div id="htitle">IEEE TEMS</div>
@@ -114,7 +135,7 @@ const HomePage = () => {
               <img
                 src="/VIT Logo.webp"
                 alt="VIT Logo"
-              
+
               />
             </a>
           </div>
@@ -164,26 +185,43 @@ const HomePage = () => {
         </div>
 
         {menuOpen && (
-          <div
-            className="side-menu"
-            id="sideMenu"
-            style={{
-              position: "fixed",
-              top: "0",
-              right: menuOpen ? "0" : "-100%",
-              width: "320px",
-              height: "100%",
-              background: "rgba(255, 255, 255, 0.02)",
-              backdropFilter: "blur(8px)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              zIndex: "10",
-              transition: "right 0.3s ease-in-out",
-              paddingTop: "50px",
-              overflowY: "auto",
-            }}
-          >
+          <>
+            {/* Backdrop overlay - clicking it closes the menu */}
+            <div
+              onClick={closeMenu}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                zIndex: 999,
+                transition: "opacity 0.3s ease-in-out",
+              }}
+            />
+            <div
+              className="side-menu"
+              id="sideMenu"
+              style={{
+                position: "fixed",
+                top: "0",
+                right: menuOpen ? "0" : "-100%",
+                width: "320px",
+                height: "100%",
+                background: "rgba(20, 20, 20, 0.95)",
+                backdropFilter: "blur(15px)",
+                borderLeft: "1px solid rgba(0, 255, 68, 0.2)",
+                boxShadow: "-5px 0 30px rgba(0, 0, 0, 0.5)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                zIndex: "1000",
+                transition: "right 0.3s ease-in-out",
+                paddingTop: "50px",
+                overflowY: "auto",
+              }}
+            >
             <nav className="sidebar" style={{ width: "100%" }}>
               <a
                 href="#Home"
@@ -210,7 +248,7 @@ const HomePage = () => {
                 Domains
               </a>
               <a
-                href="#Event"
+                href="#Events"
                 className="menu-elt"
                 style={menuItemStyle}
                 onClick={closeMenu}
@@ -218,7 +256,7 @@ const HomePage = () => {
                 Events
               </a>
               <a
-                href="#blog-section"
+                href="#Blog"
                 className="menu-elt"
                 style={menuItemStyle}
                 onClick={closeMenu}
@@ -234,7 +272,7 @@ const HomePage = () => {
                 Board
               </a>
               <a
-                href="#memories"
+                href="#Memories"
                 className="menu-elt"
                 style={menuItemStyle}
                 onClick={closeMenu}
@@ -242,7 +280,7 @@ const HomePage = () => {
                 Memories
               </a>
               <a
-                href="#Contact"
+                href="#ContactSection"
                 className="menu-elt"
                 style={menuItemStyle}
                 onClick={closeMenu}
@@ -251,32 +289,76 @@ const HomePage = () => {
               </a>
             </nav>
           </div>
+          </>
         )}
       </section>
 
-      <About />
-      <Domains />
-      <Events />
-      <Blog />
-      <Board />
-      <Faculty />
-      <Memories />
-      <ContactSection />
-      <Footer />
+      {/* Container with PixelBlast background for all sections after home */}
+      <div style={{ position: 'relative', isolation: 'isolate' }}>
+        {/* PixelBlast as fixed background */}
+        <div style={{ 
+          position: 'fixed',
+          top: '0px',
+          left: 0,
+          width: '100vw', 
+          height: '100vh', 
+          zIndex: -10,
+          pointerEvents: 'none',
+          overflow: 'hidden',
+          willChange: 'transform',
+          background: 'black'
+        }}>
+          <PixelBlast
+            variant="circle"
+            pixelSize={6}
+            color="#013f10"
+            patternScale={3}
+            patternDensity={1.4}
+            pixelSizeJitter={0.5}
+            enableRipples
+            rippleSpeed={0.4}
+            rippleThickness={0.12}
+            rippleIntensityScale={1.5}
+            liquid
+            liquidStrength={0.12}
+            liquidRadius={1.2}
+            liquidWobbleSpeed={5}
+            speed={0.6}
+            edgeFade={0.25}
+            transparent
+          />
+        </div>
+
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <About />
+          <Domains />
+          <Events />
+      {/* <Blog /> removed - Blog component disabled */}
+          <NewBlog />
+          <Board />
+          <Faculty />
+          <Memories />
+          <ContactSection />
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 };
 
 const menuItemStyle = {
   display: "block",
-  padding: "20px",
+  padding: "18px 25px",
   textDecoration: "none",
   fontFamily: "'Noto Sans TC', sans-serif",
-  fontSize: "22px",
-  fontWeight: "550",
-  textAlign: "center",
-  transition: "background-color 0.3s ease",
-  borderBottom: "2px solid white",
+  fontSize: "20px",
+  fontWeight: "600",
+  textAlign: "left",
+  transition: "all 0.3s ease",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+  borderRadius: "8px",
+  margin: "5px 10px",
+  color: "#e0e0e0",
 };
 
 export default HomePage;

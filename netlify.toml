@@ -1,0 +1,58 @@
+# Main redirect rule for SPA - must handle all routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+[build]
+  # Build command for Create React App
+  command = "npm run build"
+  # Publish directory for Create React App
+  publish = "build"
+
+# Node version
+[build.environment]
+  NODE_VERSION = "18"
+
+# Headers for better security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache control for static assets in the static folder only
+[[headers]]
+  for = "/static/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/static/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/static/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# No caching for index.html to ensure router works
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# No caching for service worker
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Optional: If you have environment variables for production
+# [context.production.environment]
+#   REACT_APP_API_URL = "https://api.yourdomain.com"
+#   REACT_APP_ENV = "production"

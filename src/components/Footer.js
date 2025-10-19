@@ -118,10 +118,10 @@ const Footer = () => {
         </div>
 
     
-        <h6 className="text-center">Made with 💚 by Our Team</h6>
+  <h6 className="text-center">Made with 💚 by <a href="/developers" style={{color: 'white', textDecoration: 'underline'}}>Our Team</a></h6>
         <hr className="col-11 mx-auto" />
         <p className="bottom text-center">
-          Copyright © 2024 IEEE TEMS. All rights reserved.
+          Copyright © 2025 IEEE TEMS. All rights reserved.
         </p>
       </footer>
     </section>

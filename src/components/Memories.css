@@ -1,143 +1,233 @@
-#Memories h2 {
-    position: relative;
-    color: white;
-    text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 50px;
+#Memories {
+    padding: 80px 0 100px 0;
+    /* background-color: rgb(22, 22, 22); */
+}
 
+/* Carousel Container */
+#carouselExampleIndicators {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
 }
 
 .carousel-item {
-    max-height: 85vh;
-    padding-top: 20px;
-    margin-top: 10px;
+    padding: 0;
+    transition: opacity 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 65vh;
 }
 
-.carousel-control-prev {
-    color: #095109c1;
+.carousel-inner {
+    position: relative;
 }
 
-.carousel-indicators .active {
-    background-color: #2c8c2c;
-}
-
+/* Centered Images */
 .mimg {
-    border-radius: 40px;
-    height: 39vw;
-    width: 125vh;
-
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 850px;
+    height: 65vh;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-#Memories h3 {
-    display: inline;
-    background-color: black;
-    color: white;
-    font-weight: 700;
-
+/* Caption Pills */
+.caption-pill {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 25px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-
-.header {
-    border: 7px #3DEB00 solid;
-    margin-left: 600px;
-    margin-right: 600px;
-    border-radius: 50px;
-    margin-top: -190px;
-    z-index: 2;
-
+.carousel-item.active .caption-pill { 
+    opacity: 1; 
 }
 
-.svg {
-    height: 40px;
-    width: 40px;
+/* Navigation Controls */
+.custom-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
-@media screen and (min-width: 850px) and (max-width:1200px) {
-    .mimg {
-        border-radius: 40px;
-        height: 49vw;
-        width: 125vh;
-
-    }
-
-    #Memories h3 {
-        position: relative;
-        top: 49px;
-    }
-
+.custom-control:hover {
+    opacity: 1;
 }
 
-@media screen and (min-width: 700px) and (max-width:849px) {
-    .mimg {
-        border-radius: 40px;
-        height: 39vw;
-        width: 85vh;
-
-    }
-
-    #Memories h3 {
-        font-weight: 700;
-
-        position: relative;
-        top: 49px;
-    }
-
+.carousel-control-prev.custom-control { 
+    left: 5%; 
 }
 
-@media screen and (min-width: 551px) and (max-width:699px) {
-    .mimg {
-        border-radius: 40px;
-        height: 49vw;
-        width: 75vh;
-
-
-    }
-
-    #Memories h3 {
-        font-weight: 600;
-        font-size: 20px;
-        position: relative;
-        top: 43px;
-    }
-
+.carousel-control-next.custom-control { 
+    right: 5%; 
 }
 
-@media screen and (min-width: 480px) and (max-width:550px) {
-    .mimg {
-        border-radius: 40px;
-        height: 54vw;
-        width: 65vh;
-
-    }
-
-    #Memories h3 {
-        font-weight: 600;
-        font-size: 18px;
-        position: relative;
-        top: 43px;
-    }
-
+.svg { 
+    height: 36px; 
+    width: 36px;
 }
 
-@media screen and (max-width: 479px) {
-    .mimg {
-        border-radius: 40px;
-        height: 57vw;
-        width: 50vh;
+/* Minimal Carousel Indicators */
+.carousel-indicators {
+    bottom: -50px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
+.carousel-indicators button {
+    width: 32px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    margin: 0;
+    padding: 0;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
 
+.carousel-indicators button:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.carousel-indicators button.active {
+    background: #00ff44;
+    width: 32px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .carousel-control-prev.custom-control { 
+        left: 3%; 
     }
-
-    #Memories h3 {
-        font-weight: 600;
-        font-size: 18px;
-        position: relative;
-        top: 43px;
-
+    .carousel-control-next.custom-control { 
+        right: 3%; 
     }
+    
+    .mimg { 
+        width: 85%;
+        height: 55vh;
+    }
+}
 
-    .svg {
-        height: 30px;
-        width: 30px;
+@media (max-width: 768px) {
+    #Memories {
+        padding: 60px 0 90px 0;
+    }
+    
+    #Events h2,
+#Blog h2,
+#Board h2,
+#Memories h2,
+#ContactSection h2,
+#Faculty h2,
+#Coordinator h2,
+#About h2,
+#Domains h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+    
+    .carousel-item {
+        min-height: 50vh;
+    }
+    
+    .mimg { 
+        width: 90%;
+        height: 50vh;
+        border-radius: 10px;
+    }
+    
+    .caption-pill { 
+        bottom: 20px; 
+        font-size: 13px; 
+        padding: 6px 16px;
+    }
+    
+    .svg { 
+        height: 32px; 
+        width: 32px;
+    }
+    
+    .carousel-control-prev.custom-control { 
+        left: 2%; 
+    }
+    
+    .carousel-control-next.custom-control { 
+        right: 2%; 
+    }
+    
+    .carousel-indicators {
+        bottom: -45px;
+        gap: 8px;
+    }
+    
+    .carousel-indicators button {
+        width: 28px;
+        height: 1px;
+    }
+    
+    .carousel-indicators button.active {
+        width: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    #Memories {
+        padding: 40px 0 80px 0;
+    }
+    
+    #Events h2,
+#Blog h2,
+#Board h2,
+#Memories h2,
+#ContactSection h2,
+#Faculty h2,
+#Coordinator h2,
+#About h2,
+#Domains h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    
+    .carousel-item {
+        min-height: 40vh;
+    }
+    
+    .mimg { 
+        width: 95%;
+        height: 45vh;
+        border-radius: 8px;
+    }
+    
+    .caption-pill {
+        font-size: 12px;
+        padding: 6px 14px;
+        bottom: 15px;
+    }
+    
+    .carousel-indicators {
+        bottom: -40px;
     }
 }

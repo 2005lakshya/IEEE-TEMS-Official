@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Domains.css";
 
 const Domains = () => {
   const [activeDomain, setActiveDomain] = useState("webdev");
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const domainContent = {
     webdev: {
-      title: "Web Development",
+      title: "Development",
       content:
-        "IEEE TEMS specializes in Web Development. We are dedicated to fostering creativity and honing technical skills within our community. Our initiatives include hosting coding competitions that challenge members to push their programming limits, organizing web design workshops that provide hands-on experience in crafting stunning digital interfaces, and conducting intensive coding bootcamps to empower our members with the ability to create responsive websites and dynamic web applications. Through these endeavors, we enable our members to explore and master the latest web technologies, ensuring that they stay at the forefront of the ever-evolving digital landscape.",
+        "IEEE TEMS specializes in Web and App Development. We are dedicated to fostering creativity and honing technical skills within our community. Our initiatives include hosting coding competitions that challenge members to push their programming limits, organizing web and mobile app design workshops that provide hands-on experience in crafting stunning digital interfaces, and conducting intensive coding bootcamps to empower our members with the ability to create responsive websites and dynamic applications. Through these endeavors, we enable our members to explore and master the latest web and app technologies, ensuring they stay at the forefront of the ever-evolving digital landscape.",
     },
     ml: {
       title: "Machine Learning",
@@ -19,11 +21,6 @@ const Domains = () => {
       title: "Competitive Programming",
       content:
         "We empower members to master problem-solving and algorithmic challenges through a variety of engaging initiatives, including contests, workshops, and personalized mentorship programs. By providing a supportive ecosystem, we enable individuals to sharpen their analytical thinking, coding skills, and innovative approaches to complex problems. Our flagship events, CodeRush and CodeClash, serve as benchmarks of excellence in competitive programming. CodeClash, in particular, has gained national recognition, attracting over 1,000 participants from across the country. These platforms foster excellence, collaboration, and competition at the highest level..",
-    },
-    devops: {
-      title: "DevOps",
-      content:
-        "IEEE TEMS serves as a dynamic platform that actively bridges the gap between development and operations, emphasizing the principles of automation, collaboration, and continuous improvement. Our comprehensive approach encompasses a wide range of activities, including the hosting of engaging DevOps workshops, hackathons, and insightful discussions on industry best practices.Within our vibrant community, members embark on a journey of discovery and skill enhancement, learning to streamline software development and deployment processes. This not only promotes efficiency and reliability but also fosters a culture of innovation in the rapidly evolving tech landscape.",
     },
     design: {
       title: "Design",
@@ -37,108 +34,80 @@ const Domains = () => {
     },
   };
 
+  const domainKeys = Object.keys(domainContent);
+  const currentIndex = domainKeys.indexOf(activeDomain);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeThreshold = 50; // minimum swipe distance in pixels
+    const swipeDistance = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        // Swiped left - go to next domain
+        const nextIndex = (currentIndex + 1) % domainKeys.length;
+        setActiveDomain(domainKeys[nextIndex]);
+      } else {
+        // Swiped right - go to previous domain
+        const prevIndex = currentIndex === 0 ? domainKeys.length - 1 : currentIndex - 1;
+        setActiveDomain(domainKeys[prevIndex]);
+      }
+    }
+
+    // Reset touch positions
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
   return (
-    <section
-      id="Domains"
-      style={{
-        backgroundColor: "rgb(22, 22, 22)",
-        paddingBottom: "50px",
-      }}
-    >
-      <h2
-        style={{
-          textAlign: "center",
-          paddingBottom: "30px",
-          paddingTop: "40px",
-          color: "white",
-        }}
+  <section id="Domains">
+    <h2>
+      <span>
+        <strong>Domains</strong>
+      </span>
+    </h2>
+      <div 
+        className="container-fluid border border-success rounded-5 text-white domain-main domain-ui-better"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
-        <span
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, transparent 10%, green 10%, green 90%, transparent 90%)",
-            backgroundSize: "100% 5px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "0 100%",
-          }}
-        >
-          <strong style={{ fontSize: "1.3em" }}>Domains</strong>
-        </span>
-      </h2>
-      <div
-        className="container-fluid border border-success rounded-5 text-white"
-        style={{ boxShadow: "0 0 0 0 rgba(19, 135, 19, 0.8)" }}
-      >
-        <div className="row flex-nowrap">
-          <div
-            className="col-auto col-md-auto col-xl-auto px-sm-6 px-0 rounded-5 py-5"
-            style={{ backgroundColor: "rgb(34, 119, 34)" }}
-          >
-            <div className="d-flex flex-column align-items-center align-items-sm-start pe-1 ps-1 pt-2 text-white min-vh-50">
-              <ul
-                className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                id="menu"
-              >
-                {Object.keys(domainContent).map((key) => (
-                  <li
-                    className={`nav-item py-1 ${
-                      activeDomain === key ? "active" : ""
-                    }`}
-                    key={key}
-                  >
-                    <button
-                      className="nav-link align-middle px-0"
-                      onClick={() => setActiveDomain(key)}
-                      style={{
-                        background: "none",
-                        border: "none",
-                        color: "inherit",
-                        textAlign: "left",
-                      }}
-                    >
-                      <span
-                        className={`ps-2 fa-solid ${
-                          key === "webdev"
-                            ? "fa-laptop-code"
-                            : key === "ml"
-                            ? "fa-robot"
-                            : key === "iot"
-                            ? "fa-globe"
-                            : key === "devops"
-                            ? "fa-infinity"
-                            : key === "design"
-                            ? "fa-broom-ball"
-                            : "fa-newspaper"
-                        } text-dark icons`}
-                      ></span>
-                      <span className="fs-4 ps-3 txt">
-                        {domainContent[key].title}&nbsp;
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="col" id="contentArea">
-            <h2
-              style={{
-                textAlign: "center",
-                padding: "0px",
-                paddingTop: "40px",
-                marginBottom: "0px",
-              }}
+        <div className="domain-content-card-better">
+          <h3 className="domain-title-better">{domainContent[activeDomain].title}</h3>
+          <p className="domain-desc-better">{domainContent[activeDomain].content}</p>
+        </div>
+        <div className="domain-slider-better">
+          {Object.keys(domainContent).map((key) => (
+            <button
+              key={key}
+              className={`domain-icon-btn-better${activeDomain === key ? " active" : ""}`}
+              onClick={() => setActiveDomain(key)}
+              aria-label={domainContent[key].title}
             >
-              <span className="text-success">
-                {domainContent[activeDomain].title.split(" ")[0][0]}
-              </span>
-              {domainContent[activeDomain].title.slice(1)}
-            </h2>
-            <br />
-            <p className="domaintext text-left lh-lg word-spacing-4" style={{textAlign:"justify"}}>
-              {domainContent[activeDomain].content}
-            </p>
-          </div>
+              <span
+                className={`fa-solid ${
+                  key === "webdev"
+                    ? "fa-laptop-code"
+                    : key === "ml"
+                    ? "fa-robot"
+                    : key === "iot"
+                    ? "fa-globe"
+                    : key === "devops"
+                    ? "fa-infinity"
+                    : key === "design"
+                    ? "fa-broom-ball"
+                    : "fa-newspaper"
+                } domain-icon-better`}
+              ></span>
+            </button>
+          ))}
         </div>
       </div>
     </section>

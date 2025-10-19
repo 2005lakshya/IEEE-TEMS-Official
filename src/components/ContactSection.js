@@ -3,34 +3,17 @@ import "./ContactSection.css";
 
 const ContactSection = () => {
   return (
-    <section
-      id="Contact"
+    <section id="ContactSection"
       style={{
-        backgroundColor: "rgb(22, 22, 22)",
+        // backgroundColor: "rgb(22, 22, 22)",
         paddingBottom: "100px",
-        paddingTop: "100px", // Added for scroll offset
+        paddingTop: "40px", // Added for scroll offset
         scrollMarginTop: "80px", // Ensures correct scroll position
       }}
     >
-      <br />
-      <br />
-      <h2
-        style={{
-          textAlign: "center",
-          paddingBottom: "30px",
-          color: "white",
-        }}
-      >
-        <span
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, transparent 10%, green 10%, green 90%, transparent 90%)",
-            backgroundSize: "100% 5px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "0 100%",
-          }}
-        >
-          <strong style={{ fontSize: "1.3em" }}>Contact Us</strong>
+      <h2 style={{ paddingTop: "0px", marginBottom: "40px" }}>
+        <span>
+          <strong>Contact Us</strong>
         </span>
       </h2>
       <div
@@ -53,25 +36,42 @@ const ContactSection = () => {
             action="https://formspree.io/f/mdoqekan"
             method="POST"
           >
-            <div className="contact-input">
-              <label style={{ fontSize: "20px", fontWeight: "700" }}>
-                Name:
-              </label>
-              <br />
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                className="contact-inputs"
-                autoComplete="name"
-              />
+            <div className="contact-row">
+              <div className="contact-input contact-input-half">
+                <label style={{ fontSize: "16px", fontWeight: "600" }}>
+                  Name:
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  className="contact-inputs"
+                  autoComplete="name"
+                />
+              </div>
+              <div className="contact-input contact-input-half">
+                <label style={{ fontSize: "16px", fontWeight: "600" }}>
+                  Mobile No:
+                </label>
+                <input
+                  type="tel"
+                  name="mobile"
+                  required
+                  className="contact-inputs"
+                  autoComplete="tel"
+                  pattern="\d{10}"
+                  maxLength="10"
+                  minLength="10"
+                  title="Please enter a valid 10-digit phone number."
+                />
+              </div>
             </div>
+
             <div className="contact-input">
-              <label style={{ fontSize: "20px", fontWeight: "700" }}>
+              <label style={{ fontSize: "16px", fontWeight: "600" }}>
                 Email:
               </label>
-              <br />
               <input
                 type="email"
                 id="email"
@@ -83,39 +83,23 @@ const ContactSection = () => {
                 style={{ textTransform: "lowercase" }}
               />
             </div>
+
             <div className="contact-input">
-              <label style={{ fontSize: "20px", fontWeight: "700" }}>
-                Mobile No:
-              </label>
-              <br />
-              <input
-                type="tel"
-                name="mobile"
-                required
-                className="contact-inputs"
-                autoComplete="tel"
-                pattern="\d{10}"
-                maxLength="10"
-                minLength="10"
-                title="Please enter a valid 10-digit phone number."
-              />
-            </div>
-            <div className="contact-input">
-              <label style={{ fontSize: "20px", fontWeight: "700" }}>
+              <label style={{ fontSize: "16px", fontWeight: "600" }}>
                 Message:
               </label>
-              <br />
-              <input
-                type="text"
+              <textarea
                 id="message"
                 name="message"
                 required
-                className="contact-inputs"
+                className="contact-inputs contact-textarea"
                 autoComplete="off"
+                rows="4"
               />
             </div>
+
             <div className="contact-input">
-              <input className="contact-input-button" type="submit" />
+              <input className="contact-input-button" type="submit" value="SUBMIT" />
             </div>
           </form>
         </div>

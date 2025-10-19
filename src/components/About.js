@@ -1,11 +1,17 @@
 import React from "react";
 import "./About.css";
+
 const About = () => {
   return (
-    <section id="About">
+    <section id="About" style={{ padding: '20px' }}>
       <div
         className="container-fluid border-success rounded-5 text-white about-main"
-        style={{ borderRadius: "10px", marginBottom:"50px" }}
+        style={{ 
+          borderRadius: "10px", 
+          marginBottom: "50px",
+          border: "1px solid rgba(0, 255, 68, 0.2)",
+          padding: "30px",
+        }}
       >
         <h2 style={{paddingTop:"0px"}}>
           <span>
@@ -13,32 +19,25 @@ const About = () => {
           </span>
         </h2>
         <p className="about-sub">BRIDGING DIVERSE PRINCIPLES</p>
-        <div className="flex-container">
+        <div className="flex-container" style={{visibility: 'visible'}}>
           <div
             className="flex-element-1 flex-element"
             style={{ textAlign: "center" }}
           >
-            <img
-              src="imgabt.webp"
-              className="imgg"
-              style={{ borderRadius: "5px" }}
-              alt="IEEE TEMS"
-            />
+               <img
+                 src="about_us.gif"
+                 className="imgg"
+                 style={{ borderRadius: "3px", width: "95%" }}
+                 alt="IEEE TEMS"
+               />
           </div>
           <div className="flex-element-2 flex-element">
             <p className="about-content" style={{ marginTop: "0px" , textAlign:'justify'}}>
-              We are a dynamic and forward-thinking community of students
-              dedicated to advancing the frontiers of technology and engineering
-              management. Our chapter serves as a vibrant hub for innovation,
-              leadership development, and collaboration.
               <br />
-              At IEEE TEMS VIT, our mission is to ignite curiosity and drive
-              change. We thrive on fostering innovation by providing an
-              environment where creative ideas flourish, projects come to life,
-              and innovation is celebrated. Through immersive workshops,
-              enlightening seminars, and active participation in tech-focused
-              competitions, our members gain hands-on experience and stay at the
-              forefront of technological advancements.
+              At IEEE TEMS VIT, our mission is to spark curiosity and inspire change. 
+              We cultivate an ecosystem where creativity thrives, ideas transform into impactful projects, and innovation is truly valued. 
+              Through engaging workshops, insightful seminars, and active involvement in technology-driven competitions, we 
+              empower our members with hands-on experience and keep them ahead in the ever-evolving world of technology.
             </p>
           </div>
         </div>
@@ -48,3 +47,4 @@ const About = () => {
 };
 
 export default About;
+
